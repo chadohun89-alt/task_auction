@@ -47,31 +47,24 @@
             </div>
         </div>
 
-        <!--세번째 갤러리-->
         <div class="art-card" onclick="selectArt('Water Lilies (Nymphéas)', 'Claude Monet', 38000000, '₩45,000,000 - ₩60,000,000')">
             <div class="art-placeholder" style="overflow: hidden; background: #111;">
                 <img src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=600&q=80" alt="Claude Monet" style="width:100%; height:100%; object-fit:cover;">
             </div>
             <div class="art-info">
-                <h3>The Star of Bethlehem</h3>
-                <p class="artist">Edward Burne-Jones</p>
-                <p class="description">이 그림은 상징주의 양식로 그려졌으며 동방 박사들이 아기 예수를 방문하는 전통적인 기독교 탄생 장면을 묘사하였습니다.</p>
-                <p class="start-price">경매 시작가 ₩38,000,000</p>
+                <h3>Water Lilies</h3>
+                <p class="artist">Claude Monet</p>
+                <p class="description">빛에 따라 시시각각 변하는 지베르니 정원의 연못을 묘사했습니다. 형태보다는 색채와 빛의 잔상을 극대화한 인상주의의 정수입니다.</p>
+                <p class="start-price">Starting at ₩38,000,000</p>
             </div>
         </div>
     </div>
 </section>
 
-<!--입찰 영역-->
-<section id="auction-room" class="hidden fade-in">
-    <!--뒤로가기 버튼-->
-    <button onclick="resetGallery()" class="btn-back">Back to Gallery</button>
-    <div class="auction-layout">
-        <!--입찰 작품 이미지-->
-        <div class="art-focus">
-            <div class="auction-art-display">
-                <img id="auction-art-img" src="" alt="Selected Art">
-            </div>
+    <!-- 테스트용: 클릭 시 즉시 경매 종료 -->
+    <button onclick="endAuction()" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; padding: 10px; background: red; color: white; border: none; cursor: pointer;">
+        테스트: 즉시 종료
+    </button>
 
             <!--입찰 타이머 영역-->
             <div class="timer-wrapper">
