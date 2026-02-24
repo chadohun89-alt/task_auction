@@ -1,14 +1,6 @@
 let currentPrice = 0;
-let timeLeft = 60;
-let timerInterval = null;
 
-/* 작품 선택 및 경매 시작 */
-
-/**
- * @param {string} title - 작품 제목
- * @param {string} artist - 작가 이름
- * @param {number} price - 시작 가격
- */
+/*작품 선택 및 경매 시작*/
 
 function selectArt(title, artist, price) {
     const e = window.event || event;
@@ -80,6 +72,7 @@ let auctionTimer = null; // 타이머 제어를 위한 변수만 남겨둡니다
 // 2. 남은 시간 카운트다운 (매개변수로 시간을 받음)
 function startAuctionTimer(seconds) {
     timeLeft = seconds; // 함수 내부 변수로 관리
+    timeLeft = seconds; // 함수 내부 변수로 관리
     const secondsDisplay = document.getElementById('seconds');
     
     if (auctionTimer) clearInterval(auctionTimer);
@@ -95,6 +88,8 @@ function startAuctionTimer(seconds) {
     }, 1000);
 }
 
+
+   
 
    
 
