@@ -84,21 +84,30 @@
 
     <!-- 섹션 2(경매 진행창) -->
     <section id="auction-room" class="hidden fade-in">
+        <!-- 버튼(갤러리 홈으로 돌아가기) -->
         <button onclick="resetGallery()" class="btn-back">Back to Gallery</button>
+        
         <div class="auction-layout">
+            
             <div class="art-focus">
+                <!-- 이미지 -->
                 <div class="auction-art-display">
                     <img id="auction-art-img" src="" alt="Selected Art">
                 </div>
 
+                <!-- 시간 카운트 다운 -->
                 <div class="timer-wrapper">
                     <span id="timer-label">Time Remaining</span>
                     <div id="seconds-display"><span id="seconds">60</span>s</div>
                 </div>
+
+                <!-- 그림 제목, 화가이름 -->
                 <div class="art-main-info">
                     <h2 id="art-title">Title</h2>
                     <p id="art-artist">Artist Name</p>
                 </div>
+
+                <!-- 입찰 최고가 -->
                 <div class="current-bid-wrapper">
                     <span class="label">Current Bid</span>
                     <div id="current-price">0</div>
@@ -106,6 +115,7 @@
             </div>
 
             <div class="interaction-panel">
+                    <!-- 입찰 금액 버튼 -->
                     <div class="bid-action">
                         <h3>Place a Bid</h3>
                         <div class="bid-buttons">
@@ -114,6 +124,7 @@
                         </div>
                     </div>
                     
+                    <!-- 입찰 기록 -->
                     <div class="history-panel">
                         <h3>Bid History</h3>
                         <ul id="bid-history">
@@ -132,8 +143,6 @@
             </div>
         </div>
     </section>
-        
-
         <script src="script.js">
             
         </script>
