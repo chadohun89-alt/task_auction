@@ -1,60 +1,43 @@
 let currentPrice = 0;
-let timeLeft = 60;
-let timerInterval = null;
 
-/* 작품 선택 및 경매 시작 */
+/*작품 선택 및 경매 시작*/
 
-/**
- * @param {string} title - 작품 제목
- * @param {string} artist - 작가 이름
- * @param {number} price - 시작 가격
- */
-
-function selectArt(title, artist, price) {
-    const e = window.event || event;
-    const clickedCard = e.currentTarget;
-    const selectedImgSrc = clickedCard.querySelector('img').src;
-
+function selectArt(title, artist, price, estimate) {
+    // 1. 섹션 전환 
     document.getElementById('catalog-section').classList.add('hidden');
     document.getElementById('auction-room').classList.remove('hidden');
     
+    // 2. 작품 기본 정보 표시
     document.getElementById('art-title').innerText = title;
     document.getElementById('art-artist').innerText = artist;
     
-    // 이미지 소스 적용
-    const mainImg = document.getElementById('auction-art-img');
-    mainImg.src = selectedImgSrc;
+    // 3. 이미지 소스 연동
+    const cards = document.querySelectorAll('.art-card');
+    cards.forEach(card => {
+        const cardTitle = card.querySelector('h3').innerText;
+        if(cardTitle.includes(title) || title.includes(cardTitle)) {
+            const selectedImgSrc = card.querySelector('img').src;
+            document.getElementById('auction-art-img').src = selectedImgSrc;
+        }
+    });
     
-    // 화면 최상단으로 스크롤 
-    window.scrollTo(0, 0);
-
+    // 4. 가격 데이터 초기화 및 UI 반영
     currentPrice = price;
-    timeLeft = 60; 
-    document.getElementById('bid-history').innerHTML = "";
+    document.getElementById('current-price').innerText = `₩${currentPrice.toLocaleString()}`;
     
-    updateUI();
-    startTimer();
-}
-
-function resetGallery() {
-    // 1. 실행 중인 타이머가 있다면 중지
-    if (timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-    }
-
-    // 2. 섹션 전환 (경매장 숨기고 카탈로그 표시)
-    document.getElementById('auction-room').classList.add('hidden');
-    document.getElementById('catalog-section').classList.remove('hidden');
-
-    // 3. 결과 모달이 떠 있다면 닫기
-    const modal = document.getElementById('result-modal');
-    if (modal) {
-        modal.classList.add('hidden');
-    }
-
-    // 4. 화면 최상단으로 스크롤
+    // 5. 입찰 기록 초기화 
+    const bidHistory = document.getElementById('bid-history');
+    if (bidHistory) bidHistory.innerHTML = "";
+    
+    // 6. 화면 최상단으로 스크롤 
     window.scrollTo(0, 0);
+
+    // 이후 타이머 시작 함수 호출 
+    if (typeof startAuctionTimer === 'function') {
+        startAuctionTimer(60); 
+    } else if (typeof startTimer === 'function') {
+        startTimer();
+    }
 }
 
 // 타이머 관리
