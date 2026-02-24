@@ -111,3 +111,5 @@ function resetGallery() {
     if (timerInterval) clearInterval(timerInterval);
     location.reload();
 }
+
+/* 기록 반영 및 최종 결과 */
