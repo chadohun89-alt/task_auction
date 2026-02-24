@@ -51,10 +51,6 @@ function selectArt(title, artist, price) {
         }
     }, 1000);
 
-    function endAuction() {
-        
-    }
-
 function endAuction() {
          alert("경매가 종료되었습니다!");
         // 입찰 버튼 비활성화 (종료 후 클릭 방지)
