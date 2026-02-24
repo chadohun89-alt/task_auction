@@ -36,6 +36,27 @@ function selectArt(title, artist, price) {
     startTimer();
 }
 
+function resetGallery() {
+    // 1. 실행 중인 타이머가 있다면 중지
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+
+    // 2. 섹션 전환 (경매장 숨기고 카탈로그 표시)
+    document.getElementById('auction-room').classList.add('hidden');
+    document.getElementById('catalog-section').classList.remove('hidden');
+
+    // 3. 결과 모달이 떠 있다면 닫기
+    const modal = document.getElementById('result-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+
+    // 4. 화면 최상단으로 스크롤
+    window.scrollTo(0, 0);
+}
+
 // 타이머 관리
 
 
