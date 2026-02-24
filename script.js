@@ -37,6 +37,37 @@ function selectArt(title, artist, price) {
 }
 
 // 타이머 관리
+{
+    let timeLeft = 60; 
+    const secondsDisplay = document.getElementById('seconds');
+
+    const auctionTimer = setInterval(() => {
+        timeLeft--;
+        if (secondsDisplay) secondsDisplay.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+            clearInterval(auctionTimer);
+            endAuction();
+        }
+    }, 1000);
+
+    function endAuction() {
+        
+    }
+
+function endAuction() {
+         alert("경매가 종료되었습니다!");
+        // 입찰 버튼 비활성화 (종료 후 클릭 방지)
+        const bidButtons = document.querySelectorAll('.btn-bid');
+        bidButtons.forEach(button => {
+            button.disabled = true;
+            button.style.opacity = "0.5";
+            button.style.cursor = "not-allowed";
+        });
+
+        console.log("경매가 종료되었습니다.");
+    }
+}
 
 
 
