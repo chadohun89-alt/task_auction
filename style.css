@@ -93,6 +93,32 @@ body { background: var(--bg-color); color: var(--text-main); font-family: 'Inter
     object-position: center; 
 }
 
+.btn-back {
+    display: inline-block; /* absolute 제거 */
+    background: transparent;
+    color: var(--accent, #fff); 
+    border: 1px solid var(--accent, #fff);
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    margin-bottom: 20px; /* 버튼과 경매 박스 사이의 간격 */
+    z-index: 100;
+}
+
+.btn-back:hover {
+    background: var(--accent, #fff);
+    color: #000;
+}
+
+#auction-room {
+    position: relative;
+    padding-top: 40px; 
+    max-width: 1100px; 
+    margin: 0 auto;
+}
+
 /* 경매 진행 화면 */
 .auction-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; padding: 40px; border: 1px solid var(--border); background: #111111; }
 .timer-wrapper { margin-bottom: 20px; }
