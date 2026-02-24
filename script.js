@@ -36,26 +36,26 @@ function selectArt(title, artist, price) {
     startTimer();
 }
 
-function resetGallery() {
-    // 1. 실행 중인 타이머가 있다면 중지
-    if (timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-    }
+// function resetGallery() {
+//     // 1. 실행 중인 타이머가 있다면 중지
+//     if (timerInterval) {
+//         clearInterval(timerInterval);
+//         timerInterval = null;
+//     }
 
-    // 2. 섹션 전환 (경매장 숨기고 카탈로그 표시)
-    document.getElementById('auction-room').classList.add('hidden');
-    document.getElementById('catalog-section').classList.remove('hidden');
+//     // 2. 섹션 전환 (경매장 숨기고 카탈로그 표시)
+//     document.getElementById('auction-room').classList.add('hidden');
+//     document.getElementById('catalog-section').classList.remove('hidden');
 
-    // 3. 결과 모달이 떠 있다면 닫기
-    const modal = document.getElementById('result-modal');
-    if (modal) {
-        modal.classList.add('hidden');
-    }
+//     // 3. 결과 모달이 떠 있다면 닫기
+//     const modal = document.getElementById('result-modal');
+//     if (modal) {
+//         modal.classList.add('hidden');
+//     }
 
-    // 4. 화면 최상단으로 스크롤
-    window.scrollTo(0, 0);
-}
+//     // 4. 화면 최상단으로 스크롤
+//     window.scrollTo(0, 0);
+// }
 
 // 타이머 관리
 let auctionTimer = null; // 타이머 제어를 위한 변수만 남겨둡니다.
@@ -204,12 +204,12 @@ function endAuction() {
     });
 }
 
-function resetGallery() {
-    if (timerInterval) clearInterval(timerInterval);
-    document.getElementById('auction-room').classList.add('hidden');
-    document.getElementById('catalog-section').classList.remove('hidden');
-    window.scrollTo(0, 0);
-}
+// function resetGallery() {
+//     if (timerInterval) clearInterval(timerInterval);
+//     document.getElementById('auction-room').classList.add('hidden');
+//     document.getElementById('catalog-section').classList.remove('hidden');
+//     window.scrollTo(0, 0);
+// }
 
 /* ============================================================
    공통 변수 (모든 기능의 데이터 소스)
