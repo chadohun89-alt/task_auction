@@ -1,0 +1,22 @@
+/.metadata/
+
+# --- Eclipse ---
+.classpath
+.project
+.settings/
+*.launch
+
+# --- Eclipse WTP / Tomcat Servers project ---
+Servers/
+
+# --- Build outputs ---
+bin/
+target/
+build/
+*.class
+
+# --- Logs / temp ---
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
