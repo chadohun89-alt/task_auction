@@ -6,58 +6,46 @@
     <title>Minimalist Art Auction</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-    <!-- 헤더 -->
+    <!--헤더 영역-->
     <div class="gallery-container">
         <header class="main-header">
-
-            <!-- 사이트 제목 -->
             <h1 class="logo">A-GALLERY</h1>
-            <!-- 사이트 부제목 -->
             <p class="subtitle">Online Curated Auction</p>
         </header>
-
     </div>
-
-    <!-- 섹션1 메인 화면(그림 카탈로그) -->
-    <section id="catalog-section" class="fade-in">
-        <!-- 카탈로그 섹션 헤드 문구 -->
-        <div class="section-header">
-            <h2 style="color: var(--accent); letter-spacing: 3px; font-weight: 300; margin-bottom: 40px;">Selected Masterpieces</h2>
+    
+<!-- 갤러리 영역-->
+<section id="catalog-section" class="fade-in">
+    <div class="section-header">
+        <h2 style="color: var(--accent); letter-spacing: 3px; font-weight: 300; margin-bottom: 40px;">Selected Masterpieces</h2>
+    </div>
+    <div class="art-grid">
+        <!--첫번째 갤러리-->
+        <div class="art-card" onclick="selectArt('The Starry Night', 'Vincent van Gogh', 120000000, '₩150,000,000 - ₩250,000,000')">
+            <div class="art-placeholder">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1024px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="Vincent van Gogh">
+            </div>
+            <div class="art-info">
+                <h3>The Starry Night</h3>
+                <p class="artist">Vincent van Gogh</p>
+                <p class="description">이 그림은 고흐가 생폴드모솔 정신병원에 머무는 동안 제작되었으며, 동쪽 창문에서 바라본 풍경을 바탕으로 기억과 감정을 담아 상상 속 풍경을 묘사하고 있습니다.</p>
+                <p class="start-price">경매 시작가 ₩120,000,000</p>
+            </div>
         </div>
 
-        <div class="art-grid">
-            <!-- 1번째 그림 반고흐 '별이 빛나는 밤' -->
-            <div class="art-card" onclick="selectArt('The Starry Night', 'Vincent van Gogh', 120000000, '₩150,000,000 - ₩250,000,000')">
-                <!-- 1번 그림 이미지 -->
-                <div class="art-placeholder">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1024px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" alt="Vincent van Gogh">
-                </div>
-                <!-- 1번 그림 제목, 화가, 설명, 경매시작가 -->
-                <div class="art-info">
-                    <h3>The Starry Night</h3>
-                    <p class="artist">Vincent van Gogh</p>
-                    <p class="description">고흐의 가장 대표적인 걸작으로, 생 레미 요양원에서 바라본 역동적인 밤하늘의 소용돌이를 강렬한 필치로 담아냈습니다.</p>
-                    <p class="start-price">경매 시작가 ₩120,000,000</p>
-                </div>
+        <!--두번째 갤러리-->
+        <div class="art-card" onclick="selectArt('Starry Night Over the Rhone', 'Vincent van Gogh', 82000000, '₩90,000,000 - ₩140,000,000')">
+            <div class="art-placeholder" style="overflow: hidden; background: #111;">
+                <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=600&q=80" alt="Van Gogh" style="width:100%; height:100%; object-fit:cover;">
             </div>
-
-            <!-- 2번째 그림 반 고흐 '론 강의 별이 빛나는 밤'  -->
-            <div class="art-card" onclick="selectArt('Starry Night Over the Rhone', 'Vincent van Gogh', 82000000, '₩90,000,000 - ₩140,000,000')">
-                <!-- 2번 그림 이미지 -->
-                <div class="art-placeholder" style="overflow: hidden; background: #111;">
-                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=600&q=80" alt="Van Gogh" style="width:100%; height:100%; object-fit:cover;">
-                </div>
-                <!-- 2번 그림 제목, 화가, 설명, 경매시작가 -->
-                <div class="art-info">
-                    <h3>Starry Night Over the Rhone</h3>
-                    <p class="artist">Vincent van Gogh</p>
-                    <p class="description">프랑스 아를의 론강 위로 비치는 가스등의 노란 불빛과 북두칠성이 조화를 이루는 낭만적이고 평온한 밤의 풍경입니다.</p>
-                    <p class="start-price">경매 시작가 ₩82,000,000</p>
-                </div>
+            <div class="art-info">
+                <h3>Flowers in a Metal Vase</h3>
+                <p class="artist">Abraham Mignon</p>
+                <p class="description">이 그림은 17세기 네덜란드 정물화의 특징을 잘 보여주고 있으며 17세기 네덜란드의 경제적 부와 문화적 풍요로움을 시각화한 동시에, 바니타스(vanitas)라는 주제를 담고 있습니다. </p>
+                <p class="start-price">경매 시작가 ₩82,000,000</p>
             </div>
+        </div>
 
         <div class="art-card" onclick="selectArt('Water Lilies (Nymphéas)', 'Claude Monet', 38000000, '₩45,000,000 - ₩60,000,000')">
             <div class="art-placeholder" style="overflow: hidden; background: #111;">
@@ -78,62 +66,55 @@
         테스트: 즉시 종료
     </button>
 
-
-    <!-- 섹션 2(경매 진행창) -->
-    <section id="auction-room" class="hidden fade-in">
-        <button onclick="resetGallery()" class="btn-back">Back to Gallery</button>
-        <div class="auction-layout">
-            <div class="art-focus">
-                <div class="auction-art-display">
-                    <img id="auction-art-img" src="" alt="Selected Art">
-                </div>
-
-                <div class="timer-wrapper">
-                    <span id="timer-label">Time Remaining</span>
-                    <div id="seconds-display"><span id="seconds">60</span>s</div>
-                </div>
-                <div class="art-main-info">
-                    <h2 id="art-title">Title</h2>
-                    <p id="art-artist">Artist Name</p>
-                </div>
-                <div class="current-bid-wrapper">
-                    <span class="label">Current Bid</span>
-                    <div id="current-price">0</div>
-                </div>
+            <!--입찰 타이머 영역-->
+            <div class="timer-wrapper">
+                <span id="timer-label">Time Remaining</span>
+                <div id="seconds-display"><span id="seconds">60</span>s</div>
             </div>
 
-            <div class="interaction-panel">
-                    <div class="bid-action">
-                        <h3>Place a Bid</h3>
-                        <div class="bid-buttons">
-                            <button onclick="placeBid(50000)" class="btn-bid">+ 50,000</button>
-                            <button onclick="placeBid(100000)" class="btn-bid">+ 100,000</button>
-                        </div>
-                    </div>
-                    
-                    <div class="history-panel">
-                        <h3>Bid History</h3>
-                        <ul id="bid-history">
-                            </ul>
-                    </div>
-                </div>
+            <!--입찰 작품 정보-->
+            <div class="art-main-info">
+                <h2 id="art-title">Title</h2>
+                <p id="art-artist">Artist Name</p>
             </div>
 
-            <div id="result-modal" class="hidden">
-                <div class="modal-content">
-                    <span class="sold-tag">SOLD</span>
-                    <h2 id="winner-info">Winning Bidder Info</h2>
-                    <p id="final-price-display"></p>
-                    <button onclick="resetGallery()" class="btn-reset">Back to Collection</button>
-                </div>
+            <!--입찰 경매 시작가-->
+            <div class="current-bid-wrapper">
+                <span class="label">Current Bid</span>
+                <div id="current-price">0</div>
             </div>
         </div>
-    </section>
-        
 
-        <script src="script.js">
+        <div class="interaction-panel">
+            <!--입찰 금액 버튼-->
+            <div class="bid-action">
+                <h3>Place a Bid</h3>
+                    <div class="bid-buttons">
+                        <button onclick="placeBid(50000)" class="btn-bid">+ 50,000</button>
+                        <button onclick="placeBid(100000)" class="btn-bid">+ 100,000</button>
+                    </div>
+            </div>
             
-        </script>
+            <!--입찰 금액 표현 영역-->
+            <div class="history-panel">
+                <h3>Bid History</h3>
+                <ul id="bid-history"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!--경매 끝-->
+    <div id="result-modal" class="hidden">
+        <div class="modal-content">
+                <span class="sold-tag">SOLD</span>
+                <h2 id="winner-info">Winning Bidder Info</h2>
+                <p id="final-price-display"></p>
+                <button onclick="resetGallery()" class="btn-reset">Back to Collection</button>
+        </div>
+    </div>
+</section>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
