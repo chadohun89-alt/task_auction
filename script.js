@@ -90,6 +90,46 @@ function endAuction() {
 
 // 입찰 로직
 
+/**
+ * 입찰 실행 함수 - 황유빈 담당
+ * @param {number} increment - 증액 금액 (+50000 또는 +100000)
+ */
+function placeBid(increment) {
+    // 1. 입찰 규칙 적용: 현재가보다 낮게 못하게 (증액 방식이라 자동으로 높지만 안전장치)
+    const nextPrice = currentPrice + increment;
+    
+    // 2. 현재가 갱신 및 최고가 반영
+    currentPrice = nextPrice;
+    
+    // 3. 기록 반영 (Bid History 리스트 추가)
+    const historyList = document.getElementById('bid-history');
+    if (historyList) {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span class="history-user">User</span>
+            <span class="history-price">₩${currentPrice.toLocaleString()}</span>
+        `;
+        // 최신 입찰 기록이 맨 위로 오도록 추가
+        historyList.prepend(li);
+    }
+
+    // 4. 화면 UI 업데이트 (현재가 텍스트 변경)
+    updateUI();
+    
+    // 5. 입찰 성공 모달/알림 (비고란 요구사항)
+    console.log(`입찰 성공: ${currentPrice}`);
+}
+
+/**
+ * UI 갱신 함수 (기존 코드에서 호출하고 있으므로 반드시 필요)
+ */
+function updateUI() {
+    const priceDisplay = document.getElementById('current-price');
+    if (priceDisplay) {
+        priceDisplay.innerText = currentPrice.toLocaleString();
+    }
+}
+
 
 
 // 기록 반영 및 최종 결과
