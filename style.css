@@ -63,6 +63,15 @@ body { background: var(--bg-color); color: var(--text-main); font-family: 'Inter
 .artist { color: var(--text-sub); margin: 0; font-size: 0.9rem; }
 .start-price { margin-top: 10px; font-weight: 600; font-size: 0.9rem; color: var(--accent); }
 
+.description {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1.5;
+    margin: 10px 0;
+    font-weight: 300;
+    word-break: keep-all; 
+}
+
 /* 경매장 메인 이미지 프레임 */
 .auction-art-display {
     width: 100%;
