@@ -1,159 +1,60 @@
-let currentPrice = 0;
-let timeLeft = 60;
-let timerInterval = null;
+/*  공통 변수 및 초기화 */
+let currentPrice = 0;      // 현재 입찰가
+let timeLeft = 60;         // 남은 시간
+let timerInterval = null;  // 타이머 제어용
 
 /* 작품 선택 및 경매 시작 */
 
-/**
- * @param {string} title - 작품 제목
- * @param {string} artist - 작가 이름
- * @param {number} price - 시작 가격
- */
-
-function selectArt(title, artist, price) {
-    const e = window.event || event;
-    const clickedCard = e.currentTarget;
+function selectArt(title, artist, price, estimate) {
+    // 1. 이벤트 타겟으로부터 이미지 경로 추출
+    const clickedCard = window.event.currentTarget;
     const selectedImgSrc = clickedCard.querySelector('img').src;
 
+    // 2. 화면 섹션 전환 (카탈로그 숨기고 경매장 표시)
     document.getElementById('catalog-section').classList.add('hidden');
     document.getElementById('auction-room').classList.remove('hidden');
-    
-    document.getElementById('art-title').innerText = title;
-    document.getElementById('art-artist').innerText = artist;
-    
-    // 이미지 소스 적용
-    const mainImg = document.getElementById('auction-art-img');
-    mainImg.src = selectedImgSrc;
-     // [중요] 시작 가격을 입찰 변수에 저장 (황유빈 로직 연결)
-    currentPrice = Number(price); 
-    
-     const bidButtons = document.querySelectorAll('.btn-bid');
-    bidButtons.forEach(button => {
-        button.disabled = false;
-        button.style.opacity = "1";
-        button.style.cursor = "pointer";
-    });
 
-    updateUI();
-    // 화면 최상단으로 스크롤 
-    window.scrollTo(0, 0);
-
-    currentPrice = price;
-    timeLeft = 60; 
-    document.getElementById('bid-history').innerHTML = "";
-    
-   startAuctionTimer(60); 
-    
-   
-    
-    
-    
-
-  
-}
-
-// function resetGallery() {
-//     // 1. 실행 중인 타이머가 있다면 중지
-//     if (timerInterval) {
-//         clearInterval(timerInterval);
-//         timerInterval = null;
-//     }
-
-//     // 2. 섹션 전환 (경매장 숨기고 카탈로그 표시)
-//     document.getElementById('auction-room').classList.add('hidden');
-//     document.getElementById('catalog-section').classList.remove('hidden');
-
-//     // 3. 결과 모달이 떠 있다면 닫기
-//     const modal = document.getElementById('result-modal');
-//     if (modal) {
-//         modal.classList.add('hidden');
-//     }
-
-//     // 4. 화면 최상단으로 스크롤
-//     window.scrollTo(0, 0);
-// }
-
-// 타이머 관리
-let auctionTimer = null; // 타이머 제어를 위한 변수만 남겨둡니다.
-
-
-// 2. 남은 시간 카운트다운 (매개변수로 시간을 받음)
-function startAuctionTimer(seconds) {
-    timeLeft = seconds; // 함수 내부 변수로 관리
-    const secondsDisplay = document.getElementById('seconds');
-    
-    if (auctionTimer) clearInterval(auctionTimer);
-
-    auctionTimer = setInterval(() => {
-        timeLeft--;
-        if (secondsDisplay) secondsDisplay.textContent = timeLeft;
-
-        if (timeLeft <= 0) {
-            clearInterval(auctionTimer);
-            endAuction(); 
-        }
-    }, 1000);
-}
-
-
-   
-
-// 4. 초기화
-function resetGallery() {
-    location.reload();
-}
-
-// 입찰 로직
-
-/* ============================================================
-   공통 변수 설정
-   ============================================================ */
-// let currentPrice = 0;    // 현재 입찰가 (황유빈 담당 핵심 변수)
-// let timeLeft = 60;       // 남은 시간
-// let timerInterval = null; // 타이머 제어용
-
-/* ============================================================
-   1~2번 항목: 작품 선택 및 화면 전환 (장지은/팀원 담당)
-   ============================================================ */
-function selectArt(title, artist, price) {
-    const e = window.event || event;
-    const clickedCard = e.currentTarget;
-    const selectedImgSrc = clickedCard.querySelector('img').src;
-
-    // 섹션 전환
-    document.getElementById('catalog-section').classList.add('hidden');
-    document.getElementById('auction-room').classList.remove('hidden');
-    
-    // 작품 정보 UI 반영
+    // 3. 작품 상세 정보 및 이미지 반영
     document.getElementById('art-title').innerText = title;
     document.getElementById('art-artist').innerText = artist;
     document.getElementById('auction-art-img').src = selectedImgSrc;
-    
-    // [중요] 시작 가격을 입찰 변수에 저장 (황유빈 로직 연결)
-    currentPrice = Number(price); 
-    
-    // 초기화 작업
-    timeLeft = 60; 
-    document.getElementById('bid-history').innerHTML = "";
-    window.scrollTo(0, 0);
 
-    // 화면 갱신 및 타이머 시작
+    // 4. 경매 데이터 초기화
+    currentPrice = Number(price);
+    timeLeft = 60;
+
+    // 5. UI 초기화
+    document.getElementById('seconds').innerText = timeLeft;
+    document.getElementById('bid-history').innerHTML = "";
+    
+    // 입찰 버튼 상태 복구 (비활성화 해제)
+    const bidButtons = document.querySelectorAll('.btn-bid');
+    bidButtons.forEach(button => {
+        button.disabled = false;
+    });
+
+    // 6. 페이지 상단으로 스크롤 이동 및 타이머 가동
+    window.scrollTo(0, 0);
     updateUI();
     startTimer();
 }
 
-/* ============================================================
-   3번 항목: 타이머 및 경매 종료 (이창호 담당)
-   ============================================================ */
+/*   타이머 로직 */
+
 function startTimer() {
+    // 기존 타이머가 있다면 중지
     if (timerInterval) clearInterval(timerInterval);
-    
+
     const secondsDisplay = document.getElementById('seconds');
-    
+
     timerInterval = setInterval(() => {
         timeLeft--;
-        if (secondsDisplay) secondsDisplay.textContent = timeLeft;
+        
+        if (secondsDisplay) {
+            secondsDisplay.textContent = timeLeft;
+        }
 
+        // 시간 종료 시
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
             endAuction();
@@ -161,123 +62,66 @@ function startTimer() {
     }, 1000);
 }
 
-function endAuction() {
-    
-    
-    // 입찰 버튼 비활성화
-    const bidButtons = document.querySelectorAll('.btn-bid');
-    bidButtons.forEach(button => {
-        button.disabled = true;
-        button.style.opacity = "0.5";
-        button.style.cursor = "not-allowed";
-    });
-}
+/* [4] 입찰 로직 */
 
-// function resetGallery() {
-//     if (timerInterval) clearInterval(timerInterval);
-//     document.getElementById('auction-room').classList.add('hidden');
-//     document.getElementById('catalog-section').classList.remove('hidden');
-//     window.scrollTo(0, 0);
-// }
-
-/* ============================================================
-   공통 변수 (모든 기능의 데이터 소스)
-   ============================================================ */
-// let currentPrice = 0;    // 현재 입찰가 
-// let timeLeft = 60;       // 남은 시간
-// let timerInterval = null; 
-
-/* ============================================================
-   기존 selectArt 함수 (유빈 님 로직과 연결 필수)
-   ============================================================ */
-function selectArt(title, artist, price) {
-    const e = window.event || event;
-    const clickedCard = e.currentTarget;
-    const selectedImgSrc = clickedCard.querySelector('img').src;
-
-    document.getElementById('catalog-section').classList.add('hidden');
-    document.getElementById('auction-room').classList.remove('hidden');
-    
-    document.getElementById('art-title').innerText = title;
-    document.getElementById('art-artist').innerText = artist;
-    document.getElementById('auction-art-img').src = selectedImgSrc;
-    
-    // [핵심] 유빈 님의 currentPrice 변수에 시작가 저장
-    currentPrice = Number(price); 
-    
-    timeLeft = 60; 
-    document.getElementById('bid-history').innerHTML = "";
-    window.scrollTo(0, 0);
-
-    updateUI(); // 시작가를 화면에 먼저 표시
-    startTimer();
-}
-
-/* ============================================================
-   4번 항목: 입찰 로직 (황유빈 담당 최종형)
-   ============================================================ */
-
-/**
- * 입찰 실행 함수: 버튼 클릭 시 호출
- * @param {number} increment - 증액 금액 (+50000, +100000)
- */
 function placeBid(increment) {
-    // 1. 입찰 규칙 적용: 현재가에 클릭한 금액만큼 증액
-    const nextPrice = currentPrice + increment;
-    
-    // 2. 전역 변수 업데이트 (최고가 갱신)
-    currentPrice = nextPrice;
-    
-    // 3. 기록 반영 (Bid History 리스트 추가)
+    if (timeLeft <= 0) return;
+
+    // 금액 합산
+    currentPrice += increment;
+
+    // 입찰 기록(Bid History) 추가
     const historyList = document.getElementById('bid-history');
     if (historyList) {
         const li = document.createElement('li');
         li.innerHTML = `
-            <span class="history-user">User</span>
-            <span class="history-price">₩${currentPrice.toLocaleString()}</span>
+            <span class="history-user">Collector</span>
+            <span class="history-price" style="float: right;">₩${currentPrice.toLocaleString()}</span>
         `;
-        historyList.prepend(li); // 최신 내역이 위로 쌓이게 처리
+        // 최신 입찰 건이 위로 오도록 prepend 사용
+        historyList.prepend(li);
     }
 
-    // 4. 화면 UI 업데이트 호출 (실시간 숫자 반영)
     updateUI();
 }
 
-/**
- * UI 갱신 함수: 현재가를 화면에 표시
- */
+/* UI 업데이트 */
+
 function updateUI() {
     const priceDisplay = document.getElementById('current-price');
     if (priceDisplay) {
-        // 숫자를 세 자릿수 콤마 형식으로 변환 (120,000,000)
-        priceDisplay.innerText = currentPrice.toLocaleString();
+        priceDisplay.innerText = `₩${currentPrice.toLocaleString()}`;
     }
 }
 
-/* ============================================================
-   종료 로직 (팝업 제거 버전)
-   ============================================================ */
+/* 경매 종료 및 결과 표시 */
+
 function endAuction() {
-    // 팝업(alert) 없이 모달창만 띄워 흐름을 유지합니다.
+    // 1. 결과 모달 표시 및 낙찰 정보 삽입
     const resultModal = document.getElementById('result-modal');
     if (resultModal) {
         resultModal.classList.remove('hidden');
         document.getElementById('winner-info').innerText = "AUCTION CLOSED";
-        document.getElementById('final-price-display').innerText = "최종 낙찰가: ₩" + currentPrice.toLocaleString();
+        document.getElementById('final-price-display').innerText = 
+            `최종 낙찰가: ₩${currentPrice.toLocaleString()}`;
     }
 
-    // 버튼 비활성화
+    // 2. 입찰 버튼 비활성화 (CSS에서 disabled 처리)
     const bidButtons = document.querySelectorAll('.btn-bid');
     bidButtons.forEach(button => {
         button.disabled = true;
-        button.style.opacity = "0.5";
-        button.style.cursor = "not-allowed";
     });
 
+    // 3. 타이머 정지
     if (timerInterval) clearInterval(timerInterval);
 }
 
-// (기타 startTimer, resetGallery 함수는 기존 코드 유지)
+/* 초기화 (Back to Collection) */
+function resetGallery() {
+    if (timerInterval) clearInterval(timerInterval);
+    
+    // 페이지 새로고침을 통해 모든 상태를 처음으로 되돌림
+    location.reload();
+}
 
-
-// 기록 반영 및 최종 결과
+/* 기록 반영 및 최종 결과 */
