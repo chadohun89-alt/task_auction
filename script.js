@@ -3,6 +3,9 @@ let currentPrice = 0;      // 현재 입찰가
 let timeLeft = 60;         // 남은 시간
 let timerInterval = null;  // 타이머 제어용
 
+let highestBidder = ""; // 최고가 입찰자(낙찰자 후보)
+let bidLogs = []; //{name, amount, secLeft}
+
 /* 작품 선택 및 경매 시작 */
 
 function selectArt(title, artist, price, estimate) {
@@ -26,13 +29,11 @@ function selectArt(title, artist, price, estimate) {
     // 5. 경매 데이터 초기화
     currentPrice = Number(price);
     timeLeft = 60;
-
     highestBidder = ""; 
 
     // 입찰가 입력칸에 현재가 자동 입력
     const amountInput = document.getElementById('bid-amount');
     if (amountInput) amountInput.value = currentPrice;
-
 
     // 6. UI 및 타이머 초기화
     document.getElementById('seconds').innerText = timeLeft;
@@ -44,10 +45,11 @@ function selectArt(title, artist, price, estimate) {
     const bidButtons = document.querySelectorAll('.btn-bid');
     bidButtons.forEach(button => button.disabled = false);
 
-
     window.scrollTo(0, 0);
     updateUI();
     startTimer();
+
+    bidLogs = [];
 }
 
 /*   타이머 로직 */
@@ -75,23 +77,53 @@ function startTimer() {
 
 /* [4] 입찰 로직 */
 
-function placeBid(increment) {
+function submitBid() {
     if (timeLeft <= 0) return;
 
-    // 금액 합산
-    currentPrice += increment;
+    const nameInput = document.getElementById('bidder-name');
+    const amountInput = document.getElementById('bid-amount');
 
-    // 입찰 기록(Bid History) 추가
+    const bidderName = nameInput ? nameInput.value.trim() : "";
+    const bidAmount = amountInput ? Number(amountInput.value) : NaN;
+
+    // 입력 검증
+    if (!bidderName) {
+        alert("이름을 입력하세요.");
+        return;
+    }
+    if (!Number.isFinite(bidAmount) || bidAmount <= 0) {
+        alert("올바른 입찰 금액을 입력하세요.");
+        return;
+    }
+
+    // ✅ 핵심 요구사항: 최고가 이하이면 입찰 불가
+    if (bidAmount <= currentPrice) {
+        alert(`현재 최고가(₩${currentPrice.toLocaleString()})보다 큰 금액만 입찰할 수 있습니다.`);
+        return;
+    }
+
+    // 최고가 갱신
+    currentPrice = bidAmount; // 최고가
+    highestBidder = bidderName; // 낙찰자
+
+    // 입찰 성공시 기록 저장(결과화면 표시용)
+    bidLogs.unshift({ name: bidderName, amount: currentPrice, secLeft: timeLeft });
+
+    // 입찰 기록 추가 (누가, 얼마, 몇 초에)
     const historyList = document.getElementById('bid-history');
     if (historyList) {
         const li = document.createElement('li');
         li.innerHTML = `
-            <span class="history-user">Collector</span>
-            <span class="history-price" style="float: right;">₩${currentPrice.toLocaleString()}</span>
+            <span class="history-user">${bidderName}</span>
+            <span class="history-price" style="float: right;">
+              ₩${currentPrice.toLocaleString()} (${timeLeft}s)
+            </span>
         `;
-        // 최신 입찰 건이 위로 오도록 prepend 사용
         historyList.prepend(li);
     }
+
+    // 입력값 정리(선택)
+    if (amountInput) amountInput.value = currentPrice;
 
     updateUI();
 }
@@ -112,19 +144,49 @@ function endAuction() {
     const resultModal = document.getElementById('result-modal');
     if (resultModal) {
         resultModal.classList.remove('hidden');
-        document.getElementById('winner-info').innerText = "AUCTION CLOSED";
-        document.getElementById('final-price-display').innerText = 
-            `최종 낙찰가: ₩${currentPrice.toLocaleString()}`;
+
+        const winnerEl = document.getElementById('winner-info');
+        const priceEl = document.getElementById('final-price-display');
+
+        if (highestBidder) {
+            if (winnerEl) winnerEl.innerText = `낙찰자: ${highestBidder}`;
+            if (priceEl) priceEl.innerText = `낙찰가: ₩${currentPrice.toLocaleString()}`;
+        } else {
+            if (winnerEl) winnerEl.innerText = `낙찰자: (입찰 없음)`;
+            if (priceEl) priceEl.innerText = `낙찰가: ₩${currentPrice.toLocaleString()}`;
+        }
     }
 
-    // 2. 입찰 버튼 비활성화 (CSS에서 disabled 처리)
+    // 2. 입찰 버튼 비활성화 (기존 코드 유지)
     const bidButtons = document.querySelectorAll('.btn-bid');
     bidButtons.forEach(button => {
         button.disabled = true;
     });
 
-    // 3. 타이머 정지
+    // 입력창 비활성화 (기존 코드 유지)
+    document.getElementById('bidder-name').disabled = true;
+    document.getElementById('bid-amount').disabled = true;
+
+    // 3. 타이머 정지 (기존 코드 유지)
     if (timerInterval) clearInterval(timerInterval);
+
+    // ✅ 결과 모달에 입찰 기록 출력
+    const resultHistoryEl = document.getElementById('result-bid-history');
+    if (resultHistoryEl) {
+    resultHistoryEl.innerHTML = "";
+
+        if (bidLogs.length === 0) {
+            const li = document.createElement('li');
+            li.textContent = "입찰 기록이 없습니다.";
+            resultHistoryEl.appendChild(li);
+        } else {
+            bidLogs.forEach(log => {
+            const li = document.createElement('li');
+            li.textContent = `${log.name} / ₩${log.amount.toLocaleString()} / ${log.secLeft}초`;
+            resultHistoryEl.appendChild(li);
+            });
+        }
+    }
 }
 
 /* 초기화 (Back to Collection) */
