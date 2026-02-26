@@ -19,30 +19,14 @@
 
     <section id="catalog-section" class="fade-in">
       <div class="section-header">
-        <h2
-          style="
-            color: var(--accent);
-            letter-spacing: 3px;
-            font-weight: 300;
-            margin-bottom: 40px;
-          "
-        >
-          Selected Masterpieces
-        </h2>
+        <h2 class="section-title">Selected Masterpieces</h2>
       </div>
 
       <div class="art-grid">
         <!-- 1번 -->
         <div
           class="art-card"
-          onclick="
-            selectArt(
-              'The Starry Night',
-              'Vincent van Gogh',
-              120000000,
-              '₩150,000,000 - ₩250,000,000',
-            )
-          "
+          onclick="selectArt('The Starry Night', 'Vincent van Gogh', 120000000, '₩150,000,000 - ₩250,000,000')"
         >
           <div class="art-placeholder">
             <img
@@ -67,23 +51,13 @@
         <!-- 2번 -->
         <div
           class="art-card"
-          onclick="
-            selectArt(
-              'Starry Night Over the Rhone',
-              'Vincent van Gogh',
-              82000000,
-              '₩90,000,000 - ₩140,000,000',
-            )
-          "
+          onclick="selectArt('Starry Night Over the Rhone', 'Vincent van Gogh', 82000000, '₩90,000,000 - ₩140,000,000')"
         >
-          <div
-            class="art-placeholder"
-            style="overflow: hidden; background: #111"
-          >
+          <div class="art-placeholder placeholder-dark">
             <img
               src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=600&q=80"
               alt="Van Gogh"
-              style="width: 100%; height: 100%; object-fit: cover"
+              class="img-fit"
             />
           </div>
 
@@ -103,23 +77,13 @@
         <!-- 3번 -->
         <div
           class="art-card"
-          onclick="
-            selectArt(
-              'Water Lilies (Nymphéas)',
-              'Claude Monet',
-              38000000,
-              '₩45,000,000 - ₩60,000,000',
-            )
-          "
+          onclick="selectArt('Water Lilies (Nymphéas)', 'Claude Monet', 38000000, '₩45,000,000 - ₩60,000,000')"
         >
-          <div
-            class="art-placeholder"
-            style="overflow: hidden; background: #111"
-          >
+          <div class="art-placeholder placeholder-dark">
             <img
               src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?auto=format&fit=crop&w=600&q=80"
               alt="Claude Monet"
-              style="width: 100%; height: 100%; object-fit: cover"
+              class="img-fit"
             />
           </div>
 
@@ -140,9 +104,7 @@
     <!-- 3) 경매 화면(카탈로그 선택 후 보여야 함) -->
     <section id="auction-room" class="hidden">
       <div class="gallery-container">
-        <button class="btn-back" onclick="resetGallery()">
-          Back to Collection
-        </button>
+        <button class="btn-back" onclick="resetGallery()">Back to Collection</button>
 
         <!-- 메인 이미지 -->
         <div class="auction-art-display">
@@ -205,29 +167,12 @@
           <h4>입찰 기록</h4>
           <ul id="result-bid-history"></ul>
         </div>
-        <button onclick="resetGallery()" class="btn-reset">
-          Back to Collection
-        </button>
+        <button onclick="resetGallery()" class="btn-reset">Back to Collection</button>
       </div>
     </div>
 
     <!-- (테스트 버튼: 원하시면 auction-room 안으로 넣는 게 더 자연스러움) -->
-    <button
-      onclick="endAuction()"
-      style="
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 9999;
-        padding: 10px;
-        background: red;
-        color: white;
-        border: none;
-        cursor: pointer;
-      "
-    >
-      테스트: 즉시 종료
-    </button>
+    <button onclick="endAuction()" class="btn-test-end">테스트: 즉시 종료</button>
 
     <script src="script.js"></script>
   </body>
